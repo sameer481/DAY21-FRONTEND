@@ -1,0 +1,422 @@
+/* Scoped CSS for DOMMasteryDemo */
+.wrapper {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  background: #fef08a;
+  color: #854d0e;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  color: #64748b;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  font-size: 1.05rem;
+}
+
+/* Tab Bar */
+.tabBar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  padding: 0.4rem;
+  border-radius: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #0f172a;
+}
+
+.activeTab {
+  background: #ffffff;
+  color: #2563eb !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Container */
+.cardContainer {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* Tab 1: CRUD Layout */
+.crudLayout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+}
+
+.formPanel {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.formPanel h4 {
+  font-size: 1.1rem;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.inputGroup label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: #475569;
+}
+
+.selectInput, .textInput {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.btnPrimary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btnPrimary:hover {
+  background: #1d4ed8;
+}
+
+.updatePanel {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.updatePanel h4 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.btnSecondary {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.renderedTreePanel {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.renderedTreePanel h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.nodeListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.nodeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nodeItem:hover {
+  border-color: #2563eb;
+}
+
+.nodeSelected {
+  border-color: #2563eb !important;
+  background: #eff6ff !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.nodeMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tagBadge {
+  background: #0f172a;
+  color: #38bdf8;
+  font-family: monospace;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.nodeText {
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+.btnDelete {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.btnDelete:hover {
+  color: #b91c1c;
+}
+
+/* Tab 2: Traversal */
+.traversalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 2rem;
+}
+
+.selectionList h4 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.selectNodeBtn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.activeNodeBtn {
+  background: #2563eb !important;
+  color: white !important;
+  border-color: #2563eb !important;
+}
+
+.traversalReadout {
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.readoutItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.readoutProp {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.readoutItem code {
+  color: #38bdf8;
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+/* Tab 3: classList Sandbox */
+.classesControlRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  background: #f8fafc;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.checkboxOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.targetBox {
+  padding: 3rem 2rem;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.targetBox code {
+  font-family: monospace;
+  color: #2563eb;
+  font-size: 1rem;
+}
+
+.elevated {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.rounded {
+  border-radius: 9999px !important;
+}
+
+.accentBorder {
+  border-color: #2563eb !important;
+  border-width: 3px !important;
+}
+
+.themeDark {
+  background: #0f172a !important;
+  color: #ffffff !important;
+}
+
+.themeDark code {
+  color: #38bdf8 !important;
+}
+
+/* Tab 4: Performance */
+.benchmarkActions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btnSuccess {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btnSuccess:hover { background: #059669; }
+
+.perfOutputBox {
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.perfOutputBox h4 {
+  color: #38bdf8;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 0.5rem;
+}
+
+.perfList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.mutedText {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .crudLayout, .traversalGrid {
+    grid-template-columns: 1fr;
+  }
+}

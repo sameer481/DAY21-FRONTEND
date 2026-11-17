@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 21 - Document Object Model (DOM) Playground</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .badge {
+      display: inline-block;
+      background: #fef08a;
+      color: #854d0e;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+    .lead {
+      color: #64748b;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .card h2 {
+      font-size: 1.35rem;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+    .card p.desc {
+      color: #64748b;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    button.btn {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    button.btn:hover {
+      background: #1d4ed8;
+    }
+    button.btn-outline {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+    button.btn-outline:hover {
+      background: #e2e8f0;
+    }
+    .terminal {
+      background: #0f172a;
+      color: #38bdf8;
+      border-radius: 10px;
+      padding: 1.25rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      min-height: 110px;
+      margin-top: 1.5rem;
+      white-space: pre-wrap;
+    }
+    /* Dynamic DOM Container */
+    #liveContainer {
+      border: 2px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 1.5rem;
+      background: #f8fafc;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .dynamic-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+    .dynamic-box:hover {
+      border-color: #2563eb;
+    }
+    .btn-remove {
+      background: #fee2e2;
+      color: #dc2626;
+      border: none;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    /* classList test element */
+    #styleTarget {
+      padding: 2.5rem 1.5rem;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      text-align: center;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .elevate { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); }
+    .pill { border-radius: 9999px !important; }
+    .accent { border-color: #2563eb !important; border-width: 3px !important; }
+    .dark-mode { background: #0f172a !important; color: #ffffff !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">Day 21 Frontend</span>
+      <h1>DOM Architecture & Mutations Playground</h1>
+      <p class="lead">Interactive sandbox for DOM node creation (CRUD), tree traversal, classList APIs, and DocumentFragment performance.</p>
+    </header>
+
+    <!-- 1. Live DOM CRUD Operations -->
+    <section class="card">
+      <h2>1. DOM Node Mutations (Create, Append, Remove)</h2>
+      <p class="desc">Create elements via <code>document.createElement()</code> and append them directly to the live DOM container.</p>
+
+      <div class="controls">
+        <input type="text" id="nodeTextInput" placeholder="Enter node text..." style="flex: 1; padding: 0.55rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px;" />
+        <button class="btn" onclick="addNode('p')">Append &lt;p&gt;</button>
+        <button class="btn" onclick="addNode('h4')">Append &lt;h4&gt;</button>
+        <button class="btn btn-outline" onclick="clearAllNodes()">Clear Container</button>
+      </div>
+
+      <div id="liveContainer">
+        <div class="dynamic-box">
+          <span>&lt;h4&gt; Initial Node 1: Welcome to the DOM</span>
+          <button class="btn-remove" onclick="this.parentElement.remove()">✕ Remove</button>
+        </div>
+        <div class="dynamic-box">
+          <span>&lt;p&gt; Initial Node 2: Document Object Model is an interactive tree</span>
+          <button class="btn-remove" onclick="this.parentElement.remove()">✕ Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Tree Traversal Inspector -->
+    <section class="card">
+      <h2>2. DOM Tree Traversal (Navigating Relative Nodes)</h2>
+      <p class="desc">Traverse relatives of the first box without querying the global document.</p>
+
+      <div class="controls">
+        <button class="btn btn-outline" onclick="traverseDOM('parent')">Inspect parentElement</button>
+        <button class="btn btn-outline" onclick="traverseDOM('children')">Inspect children count</button>
+        <button class="btn btn-outline" onclick="traverseDOM('sibling')">Inspect nextElementSibling</button>
+        <button class="btn btn-outline" onclick="traverseDOM('closest')">Inspect closest('section')</button>
+      </div>
+
+      <div class="terminal" id="traversalTerminal">// Select a traversal option above...</div>
+    </section>
+
+    <!-- 3. classList API & Inline Styles -->
+    <section class="card">
+      <h2>3. classList API & Dynamic Styles</h2>
+      <p class="desc">Toggle classes using <code>classList.toggle()</code> on the target element below.</p>
+
+      <div class="controls">
+        <button class="btn btn-outline" onclick="toggleClass('elevate')">Toggle .elevate</button>
+        <button class="btn btn-outline" onclick="toggleClass('pill')">Toggle .pill</button>
+        <button class="btn btn-outline" onclick="toggleClass('accent')">Toggle .accent</button>
+        <button class="btn btn-outline" onclick="toggleClass('dark-mode')">Toggle .dark-mode</button>
+      </div>
+
+      <div id="styleTarget">
+        <h3 id="targetHeading">Interactive Style Target</h3>
+        <p id="targetClassesText" style="color: #64748b; font-family: monospace; margin-top: 0.5rem;">
+          classList: (none)
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. Performance Benchmark (DocumentFragment) -->
+    <section class="card">
+      <h2>4. Performance Benchmark: DocumentFragment</h2>
+      <p class="desc">Compare 1,000 direct unbatched DOM appends vs. 1 batched <code>DocumentFragment</code> append.</p>
+
+      <div class="controls">
+        <button class="btn btn-outline" onclick="runBenchmark(false)">Run 1,000 Unbatched Appends</button>
+        <button class="btn" onclick="runBenchmark(true)">Run 1,000 DocumentFragment Appends</button>
+      </div>
+
+      <div class="terminal" id="perfTerminal">// Benchmark results will appear here...</div>
+    </section>
+  </div>
+
+  <script>
+    // 1. CRUD Operations
+    function addNode(tag) {
+      const input = document.getElementById("nodeTextInput");
+      const text = input.value.trim() || `New Dynamic <${tag}> element`;
+      
+      const box = document.createElement("div");
+      box.className = "dynamic-box";
+
+      const content = document.createElement(tag);
+      content.textContent = `<${tag}> ${text}`;
+
+      const delBtn = document.createElement("button");
+      delBtn.className = "btn-remove";
+      delBtn.textContent = "✕ Remove";
+      delBtn.onclick = () => box.remove();
+
+      box.appendChild(content);
+      box.appendChild(delBtn);
+
+      document.getElementById("liveContainer").appendChild(box);
+      input.value = "";
+    }
+
+    function clearAllNodes() {
+      const container = document.getElementById("liveContainer");
+      container.innerHTML = "";
+    }
+
+    // 2. Traversal
+    function traverseDOM(type) {
+      const term = document.getElementById("traversalTerminal");
+      const firstChild = document.querySelector("#liveContainer .dynamic-box");
+
+      if (!firstChild) {
+        term.textContent = "Container is currently empty! Add elements in section 1 first.";
+        return;
+      }
+
+      if (type === 'parent') {
+        const parent = firstChild.parentElement;
+        term.textContent = `firstChild.parentElement =>\n<${parent.tagName.toLowerCase()} id="${parent.id}">\nNode Type: ${parent.nodeType} (ELEMENT_NODE)`;
+      } else if (type === 'children') {
+        const container = document.getElementById("liveContainer");
+        term.textContent = `container.children.length => ${container.children.length} child element nodes.\nChild tags: ${Array.from(container.children).map(c => c.tagName).join(", ")}`;
+      } else if (type === 'sibling') {
+        const next = firstChild.nextElementSibling;
+        term.textContent = next
+          ? `firstChild.nextElementSibling =>\n"${next.textContent.trim()}"`
+          : "firstChild.nextElementSibling => null (No further sibling elements)";
+      } else if (type === 'closest') {
+        const closestSection = firstChild.closest("section");
+        term.textContent = `firstChild.closest('section') =>\n<section class="${closestSection.className}">\nSuccessfully traversed upward to find ancestor!`;
+      }
+    }
+
+    // 3. classList
+    function toggleClass(className) {
+      const target = document.getElementById("styleTarget");
+      target.classList.toggle(className);
+      document.getElementById("targetClassesText").textContent = "classList: " + (target.className || "(none)");
+    }
+
+    // 4. Performance Benchmark
+    function runBenchmark(useFragment) {
+      const term = document.getElementById("perfTerminal");
+      const hiddenContainer = document.createElement("div");
+      const count = 1000;
+
+      const start = performance.now();
+      if (useFragment) {
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < count; i++) {
+          const p = document.createElement("p");
+          p.textContent = `Item ${i}`;
+          fragment.appendChild(p);
+        }
+        hiddenContainer.appendChild(fragment); // 1 single layout pass
+      } else {
+        for (let i = 0; i < count; i++) {
+          const p = document.createElement("p");
+          p.textContent = `Item ${i}`;
+          hiddenContainer.appendChild(p); // 1000 separate appends
+        }
+      }
+      const end = performance.now();
+      const elapsed = (end - start).toFixed(2);
+
+      term.textContent = useFragment
+        ? `✅ Optimized via DocumentFragment (1 Layout Pass):\nInserted ${count} nodes in ${elapsed}ms!\nAll operations were prepared off-screen in memory before paint.`
+        : `⚠️ Unbatched Insertions (${count} Appends):\nInserted ${count} nodes in ${elapsed}ms.\nDirectly appending in loops causes repeated layout recalculations.`;
+    }
+  </script>
+</body>
+</html>
